@@ -1,4 +1,11 @@
+
+body{
+    background-color: #f3f3f3;
+}
 .main{
     width: 730px;
-    height: 500px;
+    background-color: #fff;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 10px;
 }
