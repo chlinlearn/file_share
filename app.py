@@ -11,10 +11,13 @@ app.config.from_object(config)
 db.init_app(app)
 
 
-@app.route('/index/')
+@app.route('/')
 def index():
     return render_template('index.html')
 
+@app.route('/mainPage/')
+def main():
+    return render_template('mainPage.html')
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -28,7 +31,7 @@ def login():
             session['user_id'] = user.id
             # 如果想31天内都不需要登录
             # session.permanent = True
-            return redirect(url_for('index'))
+            return redirect(url_for('main'))
         else:
             return '手机号码或者密码错误，请确认后重新登录！'
 
