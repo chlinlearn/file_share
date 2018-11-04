@@ -1,0 +1,15 @@
+.detial-list-group{
+     width: 460px;
+    margin: 0 auto;
+}
+.question-info{
+    text-align: center;
+    margin-top: 20px;
+}
+hr{
+    border-bottom: 1px solid #cccccc;
+}
+.answer-list li{
+    list-style: none;
+    border-bottom: 1px solid#cccccc;
+}

@@ -3,6 +3,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from models import User
 from models import Question
+from models import Answer
 from exts import db
 
 import config
@@ -28,16 +29,43 @@ def question():
         title = request.form.get('title')
         content = request.form.get('content')
         question = Question(title=title,content=content)
-        db.session.add('question')
+        user_id = session.get('user_id')
+        user = User.query.filter(User.id == user_id).first()
+        question.author=user
+        db.session.add(question)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('community'))
 
 @app.route('/community/')
 def community():
-    # context = {
-    #     'question': Question.query.order_by('-create_time').all()
-    # }
-    return render_template('community.html')
+    context = {
+        'questions': Question.query.order_by('-create_time').all()
+    }
+    return render_template('community.html',**context)
+
+@app.route('/detail/<question_id>/')
+def detail(question_id):
+    question_model = Question.query.filter(Question.id==question_id).first()
+    return  render_template('detail.html',question=question_model)
+
+@app.route('/add_amswer/',methods=['POST'])
+def add_answer():
+    content = request.form.get('answer_content')
+    question_id = request.form.get('question_id')
+    print(content)
+
+    answer = Answer(content = content,question_id=question_id)
+    user_id = session.get('user_id')
+    question_id = session.get('question_id')
+    user = User.query.filter(User.id == user_id).first()
+    answer.author = user
+    question = Question.query.filter(Question.id == question_id).first()
+
+    answer.question = question
+    db.session.add(answer)
+    db.session.commit()
+    print(question)
+    return redirect(url_for('detail',question_id=question_id))
 
 
 @app.route('/login/', methods=['GET', 'POST'])

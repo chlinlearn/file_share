@@ -2,10 +2,14 @@ ul{
     list-style: none;
     padding-left: 0;
 }
-ul li{
-    border-bottom:1px solid #cccccc ;
+ul.question-list-group{
+    list-style: none;
+    padding-left: 0;
+}
+ul.question-list-group li{
+    border-bottom: 1px solid #cccccc;
     overflow: hidden;
-    padding: 15px 0px;
+    padding: 15px;
 }
 .avatar-group{
     width: 20px;
@@ -18,8 +22,8 @@ ul li{
 }
 .qoestion-group{
     float: left;
-    width: 320px;
-    margin-left: 20px;
+    width: 660px;
+    margin-left: 40px;
 }
 .question-title .a{
     color: #259;
@@ -31,7 +35,7 @@ ul li{
 .question-info .question-author{
     margin-right:20px ;
 }
-.question-body{
+.question-list-group{
      width: 460px;
     margin: 0 auto;
 }

@@ -8,6 +8,7 @@ from flask_migrate import Migrate,MigrateCommand
 from app import app
 from exts import db
 from models import User
+from models import Answer
 from models import Question
 
 manager = Manager(app)
