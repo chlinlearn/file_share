@@ -1,7 +1,5 @@
-.form-horizontal{
-    width: 260px;
+.form-container{
+    width: 320px;
     margin: 0 auto;
 }
-.page-title{
-    text-align: center;
-}
+

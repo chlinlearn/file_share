@@ -2,6 +2,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session
 from models import User
+from models import Question
 from exts import db
 
 import config
@@ -18,6 +19,26 @@ def index():
 @app.route('/mainPage/')
 def main():
     return render_template('mainPage.html')
+
+@app.route('/question/',methods=['GET','POST'])
+def question():
+    if request.method == 'GET':
+        return render_template('question.html')
+    else:
+        title = request.form.get('title')
+        content = request.form.get('content')
+        question = Question(title=title,content=content)
+        db.session.add('question')
+        db.session.commit()
+        return redirect(url_for('index'))
+
+@app.route('/community/')
+def community():
+    # context = {
+    #     'question': Question.query.order_by('-create_time').all()
+    # }
+    return render_template('community.html')
+
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
