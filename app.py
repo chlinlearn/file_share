@@ -151,5 +151,15 @@ def all_data_not_login():
 def my_data():
     return render_template('my_data.html')
 
+#下载
+@app.route('/download/')
+def downloda():
+    pass
+
+#上传
+@app.route('/upload/')
+def upload():
+    pass
+
 if __name__ == '__main__':
     app.run()

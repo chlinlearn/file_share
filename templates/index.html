@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 
 {% block title %}首页{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+    <link href="{{ url_for('static',filename='css/index.css') }}">
 {% block main %}
-这是首页
+    <div class="jumbotron">
+        <h1 class="info">资料分享平台</h1>
+        <p>...</p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">了解更多</a></p>
+    </div>
 {% endblock %}
