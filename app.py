@@ -1,6 +1,7 @@
 # encoding:utf-8
 
 from flask import Flask, render_template, request, redirect, url_for, session
+# from flask_login import LoginManager,login_required
 from models import User
 from models import Question
 from models import Answer
@@ -12,6 +13,14 @@ app = Flask(__name__)
 app.config.from_object(config)
 db.init_app(app)
 
+# login_manager = LoginManager()
+# login_manager.session_protection='strong'
+# login_manager.login_view='login'
+# login_manager.init_app(app)
+
+# @login_manager.user_loader
+# def load_user(user_id):
+#   return User.get_id()
 
 @app.route('/')
 def index():
@@ -45,14 +54,13 @@ def community():
 
 @app.route('/detail/<question_id>/')
 def detail(question_id):
-    question_model = Question.query.filter(Question.id==question_id).first()
-    return  render_template('detail.html',question=question_model)
+    question_id = Question.query.filter(Question.id==question_id).first()
+    return  render_template('detail.html',question=question_id)
 
 @app.route('/add_amswer/',methods=['POST'])
 def add_answer():
     content = request.form.get('answer_content')
     question_id = request.form.get('question_id')
-    print(content)
 
     answer = Answer(content = content,question_id=question_id)
     user_id = session.get('user_id')
@@ -64,9 +72,7 @@ def add_answer():
     answer.question = question
     db.session.add(answer)
     db.session.commit()
-    print(question)
     return redirect(url_for('detail',question_id=question_id))
-
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -80,7 +86,7 @@ def login():
             session['user_id'] = user.id
             # 如果想31天内都不需要登录
             # session.permanent = True
-            return redirect(url_for('main'))
+            return redirect(url_for('index'))
         else:
             return '手机号码或者密码错误，请确认后重新登录！'
 
@@ -131,6 +137,19 @@ def logout():
     # session.clear()
     return redirect(url_for('login'))
 
+#资源下载
+@app.route('/all_data/')
+def all_data():
+    return render_template('all_data.html')
+
+@app.route('/all_data_not_login/')
+def all_data_not_login():
+    return render_template('all_data_not_login.html')
+
+#我的资源下载
+@app.route('/my_data/')
+def my_data():
+    return render_template('my_data.html')
 
 if __name__ == '__main__':
     app.run()

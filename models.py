@@ -5,8 +5,10 @@
 
 from exts import db
 from datetime import datetime
+from flask_login import UserMixin
 
-class User(db.Model):
+
+class User(db.Model,UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer,primary_key=True,autoincrement=True)
     telephone = db.Column(db.String(11),nullable=False)
