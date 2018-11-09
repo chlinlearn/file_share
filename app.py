@@ -1,6 +1,7 @@
 # encoding:utf-8
 
 from flask import Flask, render_template, request, redirect, url_for, session
+from pyhdfs import HdfsClient
 # from flask_login import LoginManager,login_required
 from models import User
 from models import Question
@@ -153,13 +154,18 @@ def my_data():
 
 #下载
 @app.route('/download/')
-def downloda():
-    pass
+def download():
+    client = HdfsClient(hosts='localhost:9870',user_name='chlinlearn')
+    client.copy_to_local('/README.txt','D:\ECJTU\hadoop_files\Readme.txt')
+    return redirect(url_for('all_data'))
 
 #上传
 @app.route('/upload/')
 def upload():
-    pass
+    client = HdfsClient(hosts='localhost:9870', user_name='chlinlearn')
+    client.copy_from_local('D:\ECJTU\hadoop_files\Readme.txt','/data/Readme.txt')
+    return redirect(url_for('all_data'))
+
 
 if __name__ == '__main__':
     app.run()

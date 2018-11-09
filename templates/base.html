@@ -11,6 +11,7 @@
     <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.5.1/js/fileinput.js"></script>
     {% block head %}{% endblock %}
 </head>
+
 <body>
         <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -62,4 +63,22 @@
             {% block main %}{% endblock %}
         </div>
 </body>
+
+<script type="text/javascript">
+
+    $('#testfile').fileinput({
+        language: 'zh_CN',
+        uploadUrl: '',
+        showCaption: true,
+        showUpload: true,
+        showRemove: true,
+        showClose: true,
+        layoutTemplates: {
+            actionDelete: ''
+        },
+        browseClass: 'btn btn-primary',
+        msgPlaceholder: '请选择文件'
+    });
+</script>
+
 </html>
