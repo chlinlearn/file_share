@@ -175,12 +175,12 @@ def all_data():
     }
     return render_template('all_data.html',**context)
 
-@app.route('/all_data_not_login/')
-def all_data_not_login():
-    context = {
-        'files': File.query.all()
-    }
-    return render_template('all_data_not_login.html',**context)
+# @app.route('/all_data_not_login/')
+# def all_data_not_login():
+#     context = {
+#         'files': File.query.all()
+#     }
+#     return render_template('all_data_not_login.html',**context)
 
 #我的资源下载
 @app.route('/my_data/')
@@ -232,10 +232,15 @@ def upload():
         file = File(filename=filename,type=type,size=size)
         user_id = session.get('user_id')
         user = User.query.filter(User.id == user_id).first()
-        file.author = user
-        db.session.add(file)
-        db.session.commit()
-        return redirect(url_for('all_data'))
+        if user:
+            file.author = user
+            db.session.add(file)
+            db.session.commit()
+            message = '上传成功！'
+            return redirect(url_for('all_data',message = message))
+        else:
+            message = '上传失败，请重新上传！'
+            return redirect(url_for('all_data', message=message))
 
 if __name__ == '__main__':
     app.run()
