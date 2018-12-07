@@ -10,17 +10,18 @@
     <div class="detial-list-group">
     <h3 class="page-title">{{ question.title }}</h3>
     <p class="question-info" >
-    <span>作者：{{ question.author.username }}</span>
+        <span>作者:</span>
+    <span class="label label-success">{{ question.author.username }}</span>&nbsp
     <span>时间：{{ question.create_time }}</span>
     <hr>
     </p>
     <p class="question-content">{{ question.content }}</p>
     <hr>
-    <h4>评论<span class="badge">12</span>:</h4>
+    <h4>评论<span class="badge">1</span>:</h4>
     <form action="{{ url_for('add_answer')}}" method="post">
         <div class="form-group">
             <input type="text" class="form-control" placeholder="请填写评论" name="answer_content">
-            <input type="hidden" name="question_id" value="{{ question_id }}">
+            <input type="hidden" name="question_id" value="{{ question.id }}">
         </div>
         <div class="form-group" style="text-align: right">
             <button class="btn btn-primary btn-sm">提交</button>
@@ -31,13 +32,12 @@
             <li>
             <div class="uesr-info">
                 <span class="glyphicon glyphicon-user" aria-hidden="true" class="avatar"></span>
-                <span class="username">{{ answer.author.username }}</span>
-                <span class="create-time">{{ answer }}</span>
+                <span class="label label-success">{{ answer.author.username }}</span>
+                <span class="create-time">{{ answer.create_time }}</span>
             </div>
             <p class="answer-content">{{ answer.content }}</p>
             </li>
             {% endfor %}
-
         </ul>
     </div>
 {% endblock %}

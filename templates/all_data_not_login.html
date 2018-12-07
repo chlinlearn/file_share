@@ -19,22 +19,16 @@
                 <td>修改日期</td>
                 <td>查看</td>
             </tr>
-            <tr class="info">
-                <td>1</td>
-                <td>文件名1</td>
-                <td>格式</td>
-                <td>大小</td>
-                <td>修改日期</td>
-                <td><a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
-            </tr>
-            <tr class="info">
-                <td>2</td>
-                <td>文件名2</td>
-                <td>格式</td>
-                <td>大小</td>
-                <td>修改日期</td>
-                <td><a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
-            </tr>
+                {% for file in files %}
+                <tr class="info">
+                    <td>{{ file.id}}</td>
+                    <td>{{ file.filename }}</td>
+                    <td>{{ file.type }}</td>
+                    <td>{{ file.size }}</td>
+                    <td>{{ file.create_time }}</td>
+                    <td><a href="#"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
